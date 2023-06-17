@@ -1,24 +1,19 @@
-import { Paper } from '@mui/material';
-import React from 'react'
+import { Paper } from '@mui/material'
+import { ReactNode } from 'react'
 
 const styles = {
-  paper: {
-    margin: '40px 0',
-    maxWidth: '800px',
-
-  }
+    paper: {
+        margin: '40px 0',
+        maxWidth: '800px',
+    },
 } as const
 
 interface AppPageProps {
-  content: JSX.Element
+    children: ReactNode
 }
 
-const AppPage: React.FC<AppPageProps> = ({content}) => {
-    return (<>
-    <Paper sx={styles.paper}>
-      {content}
-    </Paper>
-    </>);
+const AppPage: React.FC<AppPageProps> = ({ children }) => {
+    return <Paper sx={styles.paper}>{children}</Paper>
 }
 
 export default AppPage

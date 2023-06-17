@@ -1,5 +1,4 @@
 import { FormControl, Input, InputAdornment, InputLabel } from '@mui/material'
-import React from 'react'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 
 interface AppTextFieldProps {
@@ -14,22 +13,18 @@ const AppTextField: React.FC<AppTextFieldProps> = ({
     onChange,
 }) => {
     return (
-        <>
-            <FormControl variant="standard">
-                <InputLabel htmlFor="input-with-icon-adornment">
-                    {label}
-                </InputLabel>
-                <Input
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    }
-                    onChange={(e) => onChange(e.target.value)}
-                    value={value}
-                />
-            </FormControl>
-        </>
+        <FormControl variant="standard">
+            <InputLabel htmlFor="input-with-icon-adornment">{label}</InputLabel>
+            <Input
+                startAdornment={
+                    <InputAdornment position="start">
+                        <AccountCircle />
+                    </InputAdornment>
+                }
+                onChange={(e) => onChange(e.target.value)}
+                value={value}
+            />
+        </FormControl>
     )
 }
 
