@@ -1,12 +1,15 @@
 import { DatePicker, LocalizationProvider } from '@mui/lab'
-import { CircularProgress, TextField, Typography } from '@mui/material'
+import {
+    TextField,
+    ToggleButton,
+    ToggleButtonGroup,
+    Typography,
+} from '@mui/material'
 import { Box } from '@mui/system'
-import moment from 'moment'
-import React, { useEffect } from 'react'
+import { useEffect, useState, FC } from 'react'
 import AppLoading from '../components/feedback/AppLoading'
-import AppTextField from '../components/inputs/AppTextField'
-import AppPage from '../components/layout/AppPage'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import { CircularProgress } from '@mui/material'
 
 const styles = {
     loadingContainer: {
@@ -18,33 +21,69 @@ const styles = {
     },
 } as const
 
+enum ERange {
+    Day = 'day',
+    Week = 'week',
+    Year = 'year',
+}
+
 interface HomeProps {}
 
-const Home: React.FC<HomeProps> = ({}) => {
-    const [loading, setLoading] = React.useState<boolean>(true)
-    const [birthDate, setBirthDate] = React.useState<string>('02/10/2003')
-    const [amountDays, setAmountDays] = React.useState<number>(0)
+const Home: FC<HomeProps> = ({}) => {
+    const [loading, setLoading] = useState<boolean>(true)
+    const [birthDate, setBirthDate] = useState<Date | null>(null)
+    const [amountDays, setAmountDays] = useState<number>(0)
+    const [range, setRange] = useState<ERange>(ERange.Year)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
         }, 1500)
-        daysLeft()
     }, [])
 
-    const daysLeft = () => {
-        const numberDaysInLife = Math.round(365.25 * 80)
+    useEffect(() => {
+        setIsLoading(true)
+        daysLeft()
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1000)
+    }, [birthDate, range])
 
-        const todayDate = moment().format('DD/MM/yyyy')
-        const date1 = new Date(todayDate)
-        const date2 = new Date(birthDate)
+    const daysLeft = () => {
+        if (!birthDate) {
+            setAmountDays(0)
+            return
+        }
+
+        const xInLifeLeft =
+            range === ERange.Day
+                ? Math.round(365.25 * 80)
+                : range === ERange.Week
+                ? Math.round(52.1785 * 80)
+                : 80
+
+        const todayDate = new Date()
 
         // To calculate the time difference of two dates
-        const Difference_In_Time = date1.getTime() - date2.getTime()
+        const Difference_In_Time = todayDate.getTime() - birthDate.getTime()
+
         // To calculate the no. of days between two dates
-        const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24)
+        const Difference_In_Days = Math.round(
+            range === ERange.Day
+                ? Difference_In_Time / (1000 * 3600 * 24)
+                : range === ERange.Week
+                ? Difference_In_Time / (1000 * 3600 * 24 * 7)
+                : Difference_In_Time / (1000 * 3600 * 24 * 365.25)
+        )
+        const daysPropablyLeft = Math.round(xInLifeLeft - Difference_In_Days)
         //To display the final no. of days (result)
-        setAmountDays(Math.round(numberDaysInLife - Difference_In_Days))
+        if (daysPropablyLeft <= 0) {
+            setAmountDays(0)
+
+            return
+        }
+        setAmountDays(daysPropablyLeft)
     }
 
     return (
@@ -55,29 +94,40 @@ const Home: React.FC<HomeProps> = ({}) => {
                         Life Timer
                     </Typography>
                     <Box sx={styles.loadingContainer}>
-                        {' '}
                         <AppLoading size="lg" />
                     </Box>
                 </>
             ) : (
                 <>
-                    {/* <AppTextField
-                        label="Zadejte své datum narozeni"
-                        onChange={(value) => setBirthDate(value)}
-                        value={birthDate}
-                    /> */}
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
+                            disableFuture
                             label="Zadejte své datum narozeni"
                             value={birthDate}
-                            onChange={(newValue) => {
-                                setBirthDate(newValue ?? '')
-                            }}
+                            onChange={(newValue: any) => setBirthDate(newValue)}
+                            inputFormat="dd.MM.yyyy" // add US format
                             renderInput={(params) => <TextField {...params} />}
                         />
+                        <ToggleButtonGroup
+                            color="primary"
+                            value={range}
+                            exclusive
+                            onChange={(_, val) => setRange(val)}
+                            aria-label="Platform"
+                        >
+                            <ToggleButton value={ERange.Day}>dny</ToggleButton>
+                            <ToggleButton value={ERange.Week}>
+                                týdny
+                            </ToggleButton>
+                            <ToggleButton value={ERange.Year}>
+                                roky
+                            </ToggleButton>
+                        </ToggleButtonGroup>
                     </LocalizationProvider>
 
-                    {amountDays > 0 && (
+                    {isLoading ? (
+                        <CircularProgress />
+                    ) : (
                         <Box sx={styles.box}>
                             {[...Array(amountDays)].map((e, i) => (
                                 <span className="busterCards" key={i}>
@@ -88,8 +138,6 @@ const Home: React.FC<HomeProps> = ({}) => {
                     )}
                 </>
             )}
-
-            {/*TODO: addt date picker */}
         </>
     )
 }
