@@ -11,6 +11,7 @@ import {
     TimelineItem,
     TimelineSeparator,
 } from '@mui/lab'
+import { useTranslation } from 'react-i18next'
 
 const styles = {
     box: {
@@ -30,6 +31,7 @@ interface Props {
 const Renderer: FC<Props> = ({ birthDate, range }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [amountDays, setAmountDays] = useState<ILeft | null>(null)
+    const { t } = useTranslation()
 
     useEffect(() => {
         setIsLoading(true)
@@ -81,7 +83,7 @@ const Renderer: FC<Props> = ({ birthDate, range }) => {
                             })}
                         </Timeline>
                     </Box>
-                    <Typography variant="h3">The End</Typography>
+                    <Typography variant="h3">{t('home.end')}</Typography>
                 </>
             )}
         </>

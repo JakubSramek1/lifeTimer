@@ -12,6 +12,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import Renderer from '../components/renderers/Renderer'
 import LeftBox from '../components/boxes/LeftBox'
 import { AverageLifeExpectancy } from '../definitios/dates/dates'
+import { useTranslation } from 'react-i18next'
 
 const styles = {
     loadingContainer: {
@@ -36,6 +37,7 @@ const Home: FC = ({}) => {
     const [loading, setLoading] = useState<boolean>(true)
     const [birthDate, setBirthDate] = useState<Date | null>(null)
     const [range, setRange] = useState<ERange>(ERange.Year)
+    const { t } = useTranslation()
 
     useEffect(() => {
         setTimeout(() => {
@@ -48,7 +50,7 @@ const Home: FC = ({}) => {
             {loading ? (
                 <>
                     <Typography fontFamily="nexa" fontWeight={400} variant="h1">
-                        Life Timer
+                        {t('loading.heading')}
                     </Typography>
                     <Box sx={styles.loadingContainer}>
                         <AppLoading size="lg" />
@@ -63,19 +65,19 @@ const Home: FC = ({}) => {
                             variant="h3"
                             mb={6}
                         >
-                            Don`t waste your time.
+                            {t('home.heading')}
                         </Typography>
                         <Typography mb={2} variant="h6">
-                            Average life expectancy in the USA is
-                            <b> {AverageLifeExpectancy}</b> years
+                            {t('home.lifeExpectancy')}
+                            <b> {AverageLifeExpectancy}</b> {t('common.years')}
                         </Typography>
                         <Typography mb={2} variant="h6">
-                            How much time do you have left?
+                            {t('home.howMuchLeft')}
                         </Typography>
                         <Box display="flex">
                             <DatePicker
                                 disableFuture
-                                label="Enter your date of birth"
+                                label={t('home.enterBirthDate')}
                                 value={birthDate}
                                 onChange={(newValue: any) =>
                                     setBirthDate(newValue)
@@ -91,7 +93,6 @@ const Home: FC = ({}) => {
                                 value={range}
                                 exclusive
                                 onChange={(_, val) => setRange(val)}
-                                aria-label="Platform"
                             >
                                 {/* <ToggleButton value={ERange.Day}>
                                     {ERange.Day}
@@ -100,7 +101,7 @@ const Home: FC = ({}) => {
                                     {ERange.Week}
                                 </ToggleButton> */}
                                 <ToggleButton value={ERange.Year}>
-                                    Years
+                                    {t('common.years')}
                                 </ToggleButton>
                             </ToggleButtonGroup>
                         </Box>
