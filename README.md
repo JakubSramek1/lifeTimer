@@ -1,10 +1,10 @@
 # The world´s most depressing app
 
-## Average life expectancy in the USA is 77.28 years
+### Average life expectancy in the USA is 77.28 years
 
-## How much time do you have left? <br /> <br />
+### How much time do you have left? <br /> <br />
 
-## Just run
+### Just run
 
 ```bash
 npm run dev
@@ -12,6 +12,6 @@ npm run dev
 yarn dev
 ```
 
-## Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## And find out.
+### And find out.
