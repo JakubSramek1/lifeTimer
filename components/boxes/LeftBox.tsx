@@ -1,7 +1,5 @@
 import { Box } from '@mui/system'
-import { Typography } from '@mui/material'
 import secondsLeft, { ILeft } from '../../functions/core/secondsLeft'
-import { AverageLifeExpectancy } from '../../definitios/dates/dates'
 import { useEffect, useState, FC } from 'react'
 import { ERange } from '../../pages/Home'
 import TextLeft from '../text/TextLeft'

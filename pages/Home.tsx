@@ -93,14 +93,14 @@ const Home: FC = ({}) => {
                                 onChange={(_, val) => setRange(val)}
                                 aria-label="Platform"
                             >
-                                <ToggleButton value={ERange.Day}>
+                                {/* <ToggleButton value={ERange.Day}>
                                     {ERange.Day}
                                 </ToggleButton>
                                 <ToggleButton value={ERange.Week}>
                                     {ERange.Week}
-                                </ToggleButton>
+                                </ToggleButton> */}
                                 <ToggleButton value={ERange.Year}>
-                                    {ERange.Year}
+                                    Years
                                 </ToggleButton>
                             </ToggleButtonGroup>
                         </Box>

@@ -1,9 +1,16 @@
 import { Box } from '@mui/system'
-import { Button, CircularProgress } from '@mui/material'
+import { CircularProgress, Typography } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 import { ERange } from '../../pages/Home'
-import LeftBox from '../boxes/LeftBox'
 import secondsLeft, { ILeft } from '../../functions/core/secondsLeft'
+import {
+    Timeline,
+    TimelineConnector,
+    TimelineContent,
+    TimelineDot,
+    TimelineItem,
+    TimelineSeparator,
+} from '@mui/lab'
 
 const styles = {
     box: {
@@ -59,18 +66,22 @@ const Renderer: FC<Props> = ({ birthDate, range }) => {
                 <CircularProgress />
             ) : (
                 <>
-                    <LeftBox birthDate={birthDate} />
                     <Box sx={styles.box} display="flex">
-                        {setElHeadings().map((el, i) => (
-                            <Button
-                                key={i}
-                                sx={styles.rederedEl}
-                                variant="contained"
-                            >
-                                {el}
-                            </Button>
-                        ))}
+                        <Timeline position="left">
+                            {setElHeadings().map((el, i) => {
+                                return (
+                                    <TimelineItem key={i}>
+                                        <TimelineSeparator>
+                                            <TimelineDot />
+                                            <TimelineConnector />
+                                        </TimelineSeparator>
+                                        <TimelineContent>{el}</TimelineContent>
+                                    </TimelineItem>
+                                )
+                            })}
+                        </Timeline>
                     </Box>
+                    <Typography variant="h3">The End</Typography>
                 </>
             )}
         </>
