@@ -49,6 +49,14 @@ const Home: FC = ({}) => {
             ) : (
                 <>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <Typography
+                            fontFamily="nexa"
+                            fontWeight={400}
+                            variant="h3"
+                            mb={6}
+                        >
+                            Don`t waste your time.
+                        </Typography>
                         <DatePicker
                             disableFuture
                             label="Zadejte své datum narozeni"
