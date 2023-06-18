@@ -10,10 +10,15 @@ import { useEffect, useState, FC } from 'react'
 import AppLoading from '../components/feedback/AppLoading'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import Renderer from '../components/renderers/Renderer'
+import LeftBox from '../components/boxes/LeftBox'
+import { AverageLifeExpectancy } from '../definitios/dates/dates'
 
 const styles = {
     loadingContainer: {
         marginTop: '90px',
+    },
+    toggleButton: {
+        ml: 1,
     },
 } as const
 
@@ -60,32 +65,51 @@ const Home: FC = ({}) => {
                         >
                             Don`t waste your time.
                         </Typography>
-                        <DatePicker
-                            disableFuture
-                            label="Zadejte své datum narozeni"
-                            value={birthDate}
-                            onChange={(newValue: any) => setBirthDate(newValue)}
-                            inputFormat="dd.MM.yyyy" // add US format
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                        <ToggleButtonGroup
-                            color="primary"
-                            value={range}
-                            exclusive
-                            onChange={(_, val) => setRange(val)}
-                            aria-label="Platform"
-                        >
-                            <ToggleButton value={ERange.Day}>dny</ToggleButton>
-                            <ToggleButton value={ERange.Week}>
-                                týdny
-                            </ToggleButton>
-                            <ToggleButton value={ERange.Year}>
-                                roky
-                            </ToggleButton>
-                        </ToggleButtonGroup>
+                        <Typography mb={2} variant="h6">
+                            Average life expectancy in the USA is
+                            <b> {AverageLifeExpectancy}</b> years
+                        </Typography>
+                        <Typography mb={2} variant="h6">
+                            How much time do you have left?
+                        </Typography>
+                        <Box display="flex">
+                            <DatePicker
+                                disableFuture
+                                label="Enter your date of birth"
+                                value={birthDate}
+                                onChange={(newValue: any) =>
+                                    setBirthDate(newValue)
+                                }
+                                inputFormat="dd.MM.yyyy" // add US format
+                                renderInput={(params) => (
+                                    <TextField {...params} />
+                                )}
+                            />
+                            <ToggleButtonGroup
+                                sx={styles.toggleButton}
+                                color="primary"
+                                value={range}
+                                exclusive
+                                onChange={(_, val) => setRange(val)}
+                                aria-label="Platform"
+                            >
+                                <ToggleButton value={ERange.Day}>
+                                    {ERange.Day}
+                                </ToggleButton>
+                                <ToggleButton value={ERange.Week}>
+                                    {ERange.Week}
+                                </ToggleButton>
+                                <ToggleButton value={ERange.Year}>
+                                    {ERange.Year}
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </Box>
                     </LocalizationProvider>
                     {birthDate && (
-                        <Renderer range={range} birthDate={birthDate} />
+                        <>
+                            <LeftBox birthDate={birthDate} />
+                            <Renderer range={range} birthDate={birthDate} />
+                        </>
                     )}
                 </>
             )}

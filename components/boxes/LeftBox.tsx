@@ -24,22 +24,16 @@ const LeftBox: FC<Props> = ({ birthDate }) => {
     })
 
     return (
-        <Box>
-            <Typography>
-                Average life expectancy in the USA is: {AverageLifeExpectancy}{' '}
-                years
-            </Typography>
-            {counter && (
-                <>
-                    <TextLeft type={ERange.Year} left={counter.years} />
-                    <TextLeft type={ERange.Week} left={counter.weeks} />
-                    <TextLeft type={ERange.Day} left={counter.days} />
-                    <TextLeft type={ERange.Hour} left={counter.hours} />
-                    <TextLeft type={ERange.Minute} left={counter.minutes} />
-                    <TextLeft type={ERange.Second} left={counter.seconds} />
-                </>
-            )}
-        </Box>
+        counter && (
+            <Box>
+                <TextLeft type={ERange.Year} left={counter.years} />
+                <TextLeft type={ERange.Week} left={counter.weeks} />
+                <TextLeft type={ERange.Day} left={counter.days} />
+                <TextLeft type={ERange.Hour} left={counter.hours} />
+                <TextLeft type={ERange.Minute} left={counter.minutes} />
+                <TextLeft type={ERange.Second} left={counter.seconds} />
+            </Box>
+        )
     )
 }
 
