@@ -44,9 +44,10 @@ const Renderer: FC<Props> = ({ birthDate, range }) => {
     const setElHeadings = (): any[] => {
         if (!amountDays) return []
         const arr: any = []
+        const actualYear = new Date().getFullYear()
         if (range === ERange.Year) {
             for (let i = 0; i < amountDays.years; i++) {
-                arr.push(2022 + arr.length)
+                arr.push(actualYear + arr.length)
             }
             return arr
         } else if (range === ERange.Week) {

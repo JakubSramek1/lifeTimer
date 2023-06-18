@@ -4,4 +4,4 @@ export const DaysPerWeek = 7
 export const DaysPerYear = 365.25
 export const SecondsPerHour = 3600
 export const SecondsPerMinute = 60
-export const MilisecondsPerSecond = 3600
+export const MilisecondsPerSecond = 1000

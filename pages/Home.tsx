@@ -79,9 +79,7 @@ const Home: FC = ({}) => {
                                 disableFuture
                                 label={t('home.enterBirthDate')}
                                 value={birthDate}
-                                onChange={(newValue: any) =>
-                                    setBirthDate(newValue)
-                                }
+                                onChange={setBirthDate}
                                 inputFormat="dd.MM.yyyy" // add US format
                                 renderInput={(params) => (
                                     <TextField {...params} />
