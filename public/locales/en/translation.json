@@ -5,5 +5,7 @@
     "common.years": "years",
     "home.howMuchLeft": "How much time do you have left?",
     "home.enterBirthDate": "Enter your date of birth",
-    "home.end": "The end"
+    "home.end": "The end",
+    "textLeft.1": "You have:",
+    "textLeft.2": "left"
 }

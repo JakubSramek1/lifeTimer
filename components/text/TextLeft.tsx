@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import FormatNumber from '../../helpers/dataManipulation/FormatNumber'
 import { FC } from 'react'
 import { ERange } from '../../pages/Home'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     left: number
@@ -9,10 +10,11 @@ interface Props {
 }
 
 const TextLeft: FC<Props> = ({ left, type }) => {
+    const { t } = useTranslation()
     return (
-        <Typography>{`You have: ${FormatNumber(
-            left
-        )} ${type} left`}</Typography>
+        <Typography>{`${t('textLeft.1')} ${FormatNumber(left)} ${type} ${t(
+            'textLeft.2'
+        )}`}</Typography>
     )
 }
 

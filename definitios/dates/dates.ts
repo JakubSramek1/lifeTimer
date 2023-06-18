@@ -5,3 +5,7 @@ export const DaysPerYear = 365.25
 export const SecondsPerHour = 3600
 export const SecondsPerMinute = 60
 export const MilisecondsPerSecond = 1000
+export const SecondsInDay = 86400
+export const SecondsInWeek = 604800
+export const SecondsInYear = 31557600
+export const SecondsInLife = AverageLifeExpectancy * 31557600

@@ -12,6 +12,7 @@ import {
     TimelineSeparator,
 } from '@mui/lab'
 import { useTranslation } from 'react-i18next'
+import { createTimelineData } from '../../helpers/dataManipulation/CreateTimelineData'
 
 const styles = {
     box: {
@@ -30,63 +31,37 @@ interface Props {
 
 const Renderer: FC<Props> = ({ birthDate, range }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [amountDays, setAmountDays] = useState<ILeft | null>(null)
+    const [amountTime, setAmountTime] = useState<ILeft | null>(null)
     const { t } = useTranslation()
 
     useEffect(() => {
         setIsLoading(true)
-        setAmountDays(secondsLeft(birthDate))
+        setAmountTime(secondsLeft(birthDate))
         setTimeout(() => {
             setIsLoading(false)
         }, 1000)
     }, [birthDate, range])
 
-    const setElHeadings = (): any[] => {
-        if (!amountDays) return []
-        const arr: any = []
-        const actualYear = new Date().getFullYear()
-        if (range === ERange.Year) {
-            for (let i = 0; i < amountDays.years; i++) {
-                arr.push(actualYear + arr.length)
-            }
-            return arr
-        } else if (range === ERange.Week) {
-            for (let i = 0; i < amountDays.weeks; i++) {
-                arr.push(`week ${arr.length}`)
-            }
-            return arr
-        } else {
-            for (let i = 0; i < amountDays.days; i++) {
-                arr.push(`day ${arr.length}`)
-            }
-            return arr
-        }
-    }
-
-    return (
+    return isLoading ? (
+        <CircularProgress />
+    ) : (
         <>
-            {isLoading ? (
-                <CircularProgress />
-            ) : (
-                <>
-                    <Box sx={styles.box} display="flex">
-                        <Timeline position="left">
-                            {setElHeadings().map((el, i) => {
-                                return (
-                                    <TimelineItem key={i}>
-                                        <TimelineSeparator>
-                                            <TimelineDot />
-                                            <TimelineConnector />
-                                        </TimelineSeparator>
-                                        <TimelineContent>{el}</TimelineContent>
-                                    </TimelineItem>
-                                )
-                            })}
-                        </Timeline>
-                    </Box>
-                    <Typography variant="h3">{t('home.end')}</Typography>
-                </>
-            )}
+            <Box sx={styles.box} display="flex">
+                <Timeline position="left">
+                    {createTimelineData(amountTime, range).map((el, i) => {
+                        return (
+                            <TimelineItem key={i}>
+                                <TimelineSeparator>
+                                    <TimelineDot />
+                                    <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent>{el}</TimelineContent>
+                            </TimelineItem>
+                        )
+                    })}
+                </Timeline>
+            </Box>
+            <Typography variant="h3">{t('home.end')}</Typography>
         </>
     )
 }

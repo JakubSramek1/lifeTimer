@@ -4,8 +4,6 @@ import { useEffect, useState, FC } from 'react'
 import { ERange } from '../../pages/Home'
 import TextLeft from '../text/TextLeft'
 
-const styles = {} as const
-
 interface Props {
     birthDate: Date
 }
