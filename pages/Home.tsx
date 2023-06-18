@@ -9,7 +9,6 @@ import { Box } from '@mui/system'
 import { useEffect, useState, FC } from 'react'
 import AppLoading from '../components/feedback/AppLoading'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import { CircularProgress } from '@mui/material'
 import Renderer from '../components/renderers/Renderer'
 
 const styles = {
@@ -19,8 +18,12 @@ const styles = {
 } as const
 
 export enum ERange {
+    Second = 'second',
+    Minute = 'minute',
+    Hour = 'hour',
     Day = 'day',
     Week = 'week',
+    Month = 'month',
     Year = 'year',
 }
 
